@@ -42,7 +42,7 @@ pub static STATE: State<Option<WifiConnection>> = State::new(
     None,
     &[
         // &super::keepalive::NOTIF,
-        &super::screen::WIFI_STATE_NOTIF,
+        // &super::screen::WIFI_STATE_NOTIF,
         // &super::mqtt::WIFI_STATE_NOTIF,
         // &crate::web::WIFI_STATE_NOTIF,
     ],

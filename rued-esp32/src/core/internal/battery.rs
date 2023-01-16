@@ -13,7 +13,7 @@ pub static STATE: State<BatteryState> = State::new(
     &[
         // &crate::keepalive::NOTIF,
         // &crate::emergency::BATTERY_STATE_NOTIF,
-        &super::screen::BATTERY_STATE_NOTIF,
+        // &super::screen::BATTERY_STATE_NOTIF,
         // &super::mqtt::BATTERY_STATE_NOTIF,
         // &crate::web::BATTERY_STATE_NOTIF,
     ],

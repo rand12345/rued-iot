@@ -44,7 +44,7 @@ pub static STATE: State<RtcExternalState> = State::new(
     "RTC EXTERNAL",
     RtcExternalState::Initial,
     &[
-        &super::screen::EXT_RTC_NOTIF,
+        // &super::screen::EXT_RTC_NOTIF,
         // &super::inspector::REMAINING_TIME_NOTIF,
         // &crate::web::REMAINING_TIME_STATE_NOTIF,
     ],
@@ -85,7 +85,7 @@ pub async fn process<'a>(mut rtc: impl RtcExternal + 'a) {
                             log::info!("[RTC EXTERNAL]: SNTP Sync Callback: Update RTC from local time / {}", &timestamp);
 
                             let sync = SntpSyncState::new(true, timestamp);
-                            super::sntp::COMMAND.signal(SntpCommand::SyncCallback(sync));
+                            // super::sntp::COMMAND.signal(SntpCommand::SyncCallback(sync));
                         },
                     }
                 }

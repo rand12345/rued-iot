@@ -25,7 +25,7 @@ use crate::services::httpd::LazyInitHttpServer;
 use crate::MQTT_MAX_TOPIC_LEN;
 
 use super::button::{self, PressedLevel};
-use super::screen::Color;
+// use super::screen::Color;
 use super::web::{self, WebEvent, WebRequest};
 use super::{battery, mqtt, wifi};
 
@@ -36,7 +36,7 @@ pub fn high_prio<'a, ADC, BP, const C: usize, M, D>(
     battery_voltage: impl adc::OneShot<ADC, u16, BP> + 'a,
     battery_pin: BP,
     power_pin: impl InputPin + 'a,
-    display: D,
+    // display: D,
     wifi: (EspWifi<'a>, impl Receiver<Data = WifiEvent> + 'a),
     httpd: &'a mut LazyInitHttpServer,
     acceptor: Option<impl Acceptor + 'a>,
@@ -54,8 +54,8 @@ pub fn high_prio<'a, ADC, BP, const C: usize, M, D>(
 ) -> Result<(), SpawnError>
 where
     M: Monitor + Default,
-    D: Flushable<Color = crate::core::internal::screen::DisplayColor> + 'a,
-    D::Error: Debug,
+    // D: Flushable<Color = crate::core::internal::screen::DisplayColor> + 'a,
+    // D::Error: Debug,
     ADC: 'a,
     BP: adc::Channel<ADC> + 'a,
 {
@@ -66,8 +66,8 @@ where
         )?
         .spawn_local_collect(super::inspector::process(), tasks)?
         .spawn_local_collect(super::keepalive::process(), tasks)?
-        .spawn_local_collect(screen::process(), tasks)?
-        .spawn_local_collect(screen::run_draw(display), tasks)?
+        // .spawn_local_collect(screen::process(), tasks)?
+        // .spawn_local_collect(screen::run_draw(display), tasks)?
         .spawn_local_collect(super::wifi::process(wifi.0, wifi.1), tasks)?
         .spawn_local_collect(super::httpd::process(httpd), tasks)?
         .spawn_local_collect(super::pwm::process(pwm), tasks)?

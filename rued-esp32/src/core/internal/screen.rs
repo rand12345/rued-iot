@@ -15,7 +15,7 @@ use embassy_futures::select::select_array;
 use embassy_sync::blocking_mutex::raw::CriticalSectionRawMutex;
 use embassy_sync::blocking_mutex::Mutex;
 
-use gfx_xtra::draw_target::Flushable;
+// use gfx_xtra::draw_target::Flushable;
 
 use embedded_svc::executor::asynch::Unblocker;
 
@@ -23,13 +23,13 @@ use channel_bridge::notification::Notification;
 
 use super::battery::{self, BatteryState};
 use super::keepalive::{self, RemainingTime};
-use super::screen::shapes::util::{self, clear};
+// use super::screen::shapes::util::{self, clear};
 use super::wifi::{self, WifiConnection};
 
-pub use shapes::Color;
+// pub use shapes::Color;
 
-use self::pages::{Battery, Summary, Wifi};
-use self::shapes::Action;
+// use self::pages::{Battery, Summary, Wifi};
+// use self::shapes::Action;
 
 #[cfg(feature = "display-i2c")]
 pub use i2c::*;
@@ -46,24 +46,25 @@ mod i2c {
     pub const DISPLAY_COLOR_LIGHT_BLUE: DisplayColor = BinaryColor::On; // Color::LightBlue
 }
 
-#[cfg(not(feature = "display-i2c"))]
-pub use color::*;
-#[cfg(not(feature = "display-i2c"))]
-mod color {
-    use super::Color;
+// #[cfg(not(feature = "display-i2c"))]
+// pub use color::*;
+// #[cfg(not(feature = "display-i2c"))]
+// mod color {
+//     use super::Color;
 
-    pub type DisplayColor = Color;
-    pub const DISPLAY_COLOR_YELLOW: DisplayColor = Color::Yellow;
-    pub const DISPLAY_COLOR_GREEN: DisplayColor = Color::Green;
-    pub const DISPLAY_COLOR_BLACK: DisplayColor = Color::Black;
-    pub const DISPLAY_COLOR_WHITE: DisplayColor = Color::White;
-    pub const DISPLAY_COLOR_GRAY: DisplayColor = Color::Gray;
-    pub const DISPLAY_COLOR_LIGHT_BLUE: DisplayColor = Color::LightBlue;
-}
+//     pub type DisplayColor = Color;
+//     pub const DISPLAY_COLOR_YELLOW: DisplayColor = Color::Yellow;
+//     pub const DISPLAY_COLOR_GREEN: DisplayColor = Color::Green;
+//     pub const DISPLAY_COLOR_BLACK: DisplayColor = Color::Black;
+//     pub const DISPLAY_COLOR_WHITE: DisplayColor = Color::White;
+//     pub const DISPLAY_COLOR_GRAY: DisplayColor = Color::Gray;
+//     pub const DISPLAY_COLOR_LIGHT_BLUE: DisplayColor = Color::LightBlue;
+// }
 
-mod pages;
-mod shapes;
+// mod pages;
+// mod shapes;
 
+/*
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 enum Page {
     Summary = 0,
@@ -348,3 +349,4 @@ where
 
     Ok(display)
 }
+*/

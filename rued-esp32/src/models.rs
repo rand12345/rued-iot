@@ -190,7 +190,10 @@ where
 
         let tv_sec = dt.timestamp();
         let tv_usec = dt.timestamp_subsec_micros() as i32;
-        let tm = timeval { tv_sec, tv_usec };
+        let tm = timeval {
+            tv_sec: tv_sec.try_into().unwrap(),
+            tv_usec,
+        };
 
         settimeofday(&tm, &tz);
         info!(
@@ -366,17 +369,17 @@ pub(crate) mod rtc_external {
         // NOTE: Handle system time providing a wierdly large value,
         // > Friday, 1 January 2100 00:00:00
         // FIXME this should trigger an NTP update.
-        if timestamp > 4102444800 {
-            log::warn!("System timestamp: {}. This has now been reset to Thursday, 1 January 1970 00:00:00.", timestamp);
+        // if timestamp > 4102444800 {
+        //     log::warn!("System timestamp: {}. This has now been reset to Thursday, 1 January 1970 00:00:00.", timestamp);
 
-            timestamp = 0;
-        }
+        //     timestamp = 0;
+        // }
 
         // FIXME this causes a crash?
         // let system_time = esp_idf_svc::systime::EspSystemTime {};
         // let timestamp = esp_idf_svc::systime::EspSystemTime::now(&system_time).as_secs();
 
-        let naive_dt_opt = NaiveDateTime::from_timestamp_opt(timestamp, 0);
+        let naive_dt_opt = NaiveDateTime::from_timestamp_opt(timestamp.try_into().unwrap(), 0);
         let naivedatetime_utc = if let Some(value) = naive_dt_opt {
             value
         } else {

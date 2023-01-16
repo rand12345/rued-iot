@@ -9,20 +9,20 @@ resolver = "2"
 pio = ["esp-idf-sys/pio"]
 default = ["edge-executor", "system", "experimental"] # Note that edge-executor requires alloc
 # system = ["display-i2c"]
-system = ["display-spi", "nvs", "external-rtc", "board"]
+system = [ "nvs" ] # "display-spi", "external-rtc", "board"
 
-external-rtc = []
+# external-rtc = []
 nvs = []
 pwm = []
-display-i2c = ["profont", "ssd1306", "display-binary-color"]
-display-binary-color = []
-display-spi = ["profont", "ili9342"]
-ili9342 = ["profont", "mipidsi"]
+# display-i2c = ["profont", "ssd1306", "display-binary-color"]
+# display-binary-color = []
+# display-spi = ["profont", "ili9342"]
+# ili9342 = ["profont", "mipidsi"]
 
-board = ["micromod-data-logging-carrier"]
-micromod-qwiic-carrier-single = []
-micromod-main-board-single = []
-micromod-data-logging-carrier = []
+# board = ["micromod-data-logging-carrier"]
+# micromod-qwiic-carrier-single = []
+# micromod-main-board-single = []
+# micromod-data-logging-carrier = []
 
 experimental = ["esp-idf-svc/experimental", "embedded-svc/experimental"]
 
@@ -34,6 +34,9 @@ log = { version = "0.4", features = [
     "max_level_debug",
     "release_max_level_debug",
 ] }
+
+dotenv_codegen = "0.15.0"
+
 futures = {version = "0.3", features = ["async-await"] }
 serde = { version = "1", default-features = false }
 postcard = "0.7"

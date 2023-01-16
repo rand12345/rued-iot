@@ -52,7 +52,7 @@ pub static STATE: State<PwmCommand> = State::new(
     "PWM",
     PwmCommand::Initialised,
     &[
-        &super::screen::PWM_CHANGE_NOTIF,
+        // &super::screen::PWM_CHANGE_NOTIF,
         &STATE_PERSIST_NOTIFY,
         &STATE_FLASH_NOTIFY,
     ],

@@ -44,7 +44,7 @@ use esp_idf_svc::wifi::{EspWifi, WifiEvent, WifiWait};
 
 use esp_idf_sys::{esp, esp_restart, EspError};
 
-use gfx_xtra::draw_target::{Flushable, OwnedDrawTargetExt};
+// use gfx_xtra::draw_target::{Flushable, OwnedDrawTargetExt};
 
 use edge_executor::*;
 use shared_bus::BusManager;
@@ -56,7 +56,7 @@ use crate::core::internal::pulse_counter::PulseCounter;
 use crate::core::internal::pulse_counter::PulseWakeup;
 use crate::core::internal::ws;
 
-use crate::core::internal::screen::Color;
+// use crate::core::internal::screen::Color;
 use crate::mqtt_msg::{MessageParser, MqttCommand};
 // use ruwm::button::PressedLevel;
 // use ruwm::pulse_counter::PulseCounter;
@@ -88,12 +88,17 @@ use ssd1306::{prelude::*, I2CDisplayInterface, Ssd1306};
 
 use self::httpd::LazyInitHttpServer;
 
+use dotenv_codegen::dotenv;
+
 pub mod httpd;
 
-const WIFI_SSID: &str = env!("WIFI_SSID");
-const WIFI_PSK: &str = env!("WIFI_PSK");
+const WIFI_SSID: &str = dotenv!("WIFI_SSID");
+const WIFI_PSK: &str = dotenv!("WIFI_PSK");
+// const WIFI_SSID: &str = env!("WIFI_SSID");
+// const WIFI_PSK: &str = env!("WIFI_PSK");
 const WIFI_START_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(20);
-const MQTT_HOST: &str = env!("MQTT_HOST");
+const MQTT_HOST: &str = dotenv!("MQTT_HOST");
+// const MQTT_HOST: &str = env!("MQTT_HOST");
 
 // const ASSETS: assets::serve::Assets = edge_frame::assets!("RUWM_WEB");
 
@@ -284,6 +289,7 @@ pub fn display(
     Ok(display)
 }
 
+/*
 #[cfg(not(feature = "display-i2c"))]
 pub fn display<'a>(
     peripherals: peripherals::DisplayPeripherals,
@@ -366,6 +372,7 @@ pub fn display<'a>(
 
     Ok(display)
 }
+*/
 
 pub fn wifi<'d>(
     modem: impl Peripheral<P = impl WifiModemPeripheral + 'd> + 'd,
@@ -416,10 +423,10 @@ pub fn wifi<'d>(
 
 pub fn httpd() -> Result<LazyInitHttpServer, InitError> {
     let server_certificate = tls::X509::pem_until_nul(include_bytes!(
-        "/home/mdesilva/esp/openssl-generate-rs/output/cert.pem"
+        "/Users/dgau/tmp/rued-iot/rued-esp32/cert.pem"
     ));
     let server_private_key = tls::X509::pem_until_nul(include_bytes!(
-        "/home/mdesilva/esp/openssl-generate-rs/output/cert_key.pem"
+        "/Users/dgau/tmp/rued-iot/rued-esp32/key.pem"
     ));
 
     let mut config = esp_idf_svc::http::server::Configuration::default();

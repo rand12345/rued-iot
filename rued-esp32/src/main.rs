@@ -390,7 +390,7 @@ fn run(wakeup_reason: WakeupReason) -> Result<(), InitError> {
 
         value
     };
-
+    /*
     // SD/MMC Card
 
     let driver: Arc<SpiDriver<'static>> = peripherals.spi1.driver.clone();
@@ -423,7 +423,7 @@ fn run(wakeup_reason: WakeupReason) -> Result<(), InitError> {
 
     let sdmmc_cs = PinDriver::output(peripherals.sd_card.cs)?;
     let sdmmc_spi = embedded_sdmmc::SdMmcSpi::new(sdmmc_spi, sdmmc_cs);
-
+    */
     // High-prio tasks
 
     #[cfg(feature = "display-i2c")]
@@ -435,9 +435,9 @@ fn run(wakeup_reason: WakeupReason) -> Result<(), InitError> {
 
     #[cfg(feature = "display-spi")]
     let display = { services::display(peripherals.display, peripherals.spi1).unwrap() };
-
-    let mut high_prio_executor = EspExecutor::<16, _>::new();
-    let mut high_prio_tasks = heapless::Vec::<_, 16>::new();
+    /*
+    let mut high_prio_executor = EspExecutor::<15, _>::new();
+    let mut high_prio_tasks = heapless::Vec::<_, 15>::new();
     spawn::high_prio(
         &mut high_prio_executor,
         &mut high_prio_tasks,
@@ -448,7 +448,7 @@ fn run(wakeup_reason: WakeupReason) -> Result<(), InitError> {
         AdcDriver::new(peripherals.battery.adc, &AdcConfig::new().calibration(true))?,
         AdcChannelDriver::<_, Atten0dB<_>>::new(peripherals.battery.voltage)?,
         PinDriver::input(peripherals.battery.power)?,
-        display,
+        // display,
         (wifi, wifi_notif),
         &mut httpd,
         Some(ws_acceptor),
@@ -463,7 +463,7 @@ fn run(wakeup_reason: WakeupReason) -> Result<(), InitError> {
         mqtt_client,
         mqtt_conn,
     )?;
-
+    */
     // Mid-prio tasks
 
     log::info!("Starting mid-prio executor");
@@ -493,7 +493,7 @@ fn run(wakeup_reason: WakeupReason) -> Result<(), InitError> {
             // },
         )?;
 
-        // spawn::wifi(&mut executor, &mut tasks, wifi, wifi_notif)?;
+        spawn::wifi(&mut executor, &mut tasks, wifi, wifi_notif)?;
 
         // spawn::mqtt_receive(&mut executor, &mut tasks, mqtt_conn)?;
 
@@ -528,8 +528,8 @@ fn run(wakeup_reason: WakeupReason) -> Result<(), InitError> {
 
     // Start main execution
 
-    log::info!("Starting high-prio executor");
-    spawn::run(&mut high_prio_executor, high_prio_tasks);
+    // log::info!("Starting high-prio executor");
+    // spawn::run(&mut high_prio_executor, high_prio_tasks);
 
     log::info!("Execution finished, waiting for 2s to workaround a STD/ESP-IDF pthread (?) bug");
     // This is required to allow the low prio thread to start

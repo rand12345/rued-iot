@@ -11,7 +11,7 @@ use embedded_graphics::{
     primitives::Rectangle,
 };
 
-use gfx_xtra::draw_target::{DrawTargetExt2, RotateAngle};
+// use gfx_xtra::draw_target::{DrawTargetExt2, RotateAngle};
 
 use crate::core::internal::battery::BatteryState;
 use crate::core::internal::external_rtc::RtcExternalState;

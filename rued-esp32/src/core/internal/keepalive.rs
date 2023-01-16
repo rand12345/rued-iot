@@ -17,7 +17,7 @@ pub static STATE: State<RemainingTime> = State::new(
     RemainingTime::Indefinite,
     &[
         &super::inspector::REMAINING_TIME_NOTIF,
-        &super::screen::REMAINING_TIME_NOTIF,
+        // &super::screen::REMAINING_TIME_NOTIF,
         // &crate::web::REMAINING_TIME_STATE_NOTIF,
     ],
 );
